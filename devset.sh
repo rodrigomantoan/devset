@@ -12,7 +12,7 @@ case "$1" in
     echo "Help function placeholder"
     ;;
   version|-v|--version)
-    echo -e "DevInit \033[1;32m$SCRIPT_VERSION\033[0m"
+    echo -e "DevSet \033[1;32m$SCRIPT_VERSION\033[0m"
     ;;
   new|add|-n|--new|-a|--add)
     # Placeholder for new project creation
