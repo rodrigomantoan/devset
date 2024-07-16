@@ -2,14 +2,16 @@
 
 # This script is used to set up the development environment for local projects
 
-BASEDIR=$(dirname "$0") # Script directory
+BASE_DIR=$(dirname "$0") # Script directory
 SCRIPT_VERSION="0.1" # Script version
+
+# Source command functions
+source "$BASE_DIR/commands/help.sh"
 
 # Main script logic
 case "$1" in
   help|-h|--help)
-    # Placeholder for help function
-    echo "Help function placeholder"
+    help
     ;;
   version|-v|--version)
     echo -e "DevSet \033[1;32m$SCRIPT_VERSION\033[0m"
