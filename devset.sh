@@ -5,8 +5,20 @@
 BASE_DIR=$(dirname "$0") # Script directory
 SCRIPT_VERSION="0.1" # Script version
 
+projects_path="$HOME/Sites" # Projects path
+projects_tld="test" # Projects TLD
+
 # Source command functions
 source "$BASE_DIR/commands/help.sh"
+source "$BASE_DIR/commands/create.sh"
+source "$BASE_DIR/commands/remove.sh"
+source "$BASE_DIR/commands/install.sh"
+source "$BASE_DIR/commands/uninstall.sh"
+
+# Source utility functions
+source "$BASE_DIR/utils/common.sh"
+source "$BASE_DIR/utils/colors.sh"
+
 
 # Main script logic
 case "$1" in
@@ -17,8 +29,7 @@ case "$1" in
     echo -e "DevSet \033[1;32m$SCRIPT_VERSION\033[0m"
     ;;
   new|add|-n|--new|-a|--add)
-    # Placeholder for new project creation
-    echo "New project creation placeholder"
+    create_project "$2" "$3"
     ;;
   remove|-rm|--remove)
     # Placeholder for remove project
