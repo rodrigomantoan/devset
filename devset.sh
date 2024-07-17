@@ -17,8 +17,6 @@ source "$BASE_DIR/commands/uninstall.sh"
 
 # Source utility functions
 source "$BASE_DIR/utils/common.sh"
-source "$BASE_DIR/utils/colors.sh"
-
 
 # Main script logic
 case "$1" in
