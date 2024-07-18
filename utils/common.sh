@@ -33,7 +33,7 @@ declare -A SYMBOL=(
 )
 
 # Function to print formatted messages (based on type)
-__print_message() {
+_print_message() {
     local type=${1:-"DEFAULT"}
     local message=$2
 
