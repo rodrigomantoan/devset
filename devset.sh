@@ -24,7 +24,7 @@ case "$1" in
     help
     ;;
   version|-v|--version)
-    echo -e "DevSet \033[1;32m$SCRIPT_VERSION\033[0m"
+    _print_message "INFO" "DevSet $SCRIPT_VERSION"
     ;;
   new|add|-n|--new|-a|--add)
     create_project "$2" "$3"
