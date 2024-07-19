@@ -3,12 +3,12 @@
 BOLD="\033[1m"
 ITALIC="\033[3m"
 
-RESET_BOLD="\033[22m"
-RESET_ITALIC="\033[23m"
+END_BOLD="\033[22m"
+END_ITALIC="\033[23m"
 
 GREEN="\033[0;92m"
 RED="\033[0;91m"
-YELLOW="\033[0;93m"
+YELLOW="\033[0;33m"
 BLUE="\033[0;94m"
 CYAN="\033[0;96m"
 GRAY="\033[0;97m"
@@ -17,7 +17,7 @@ DEFAULT="\033[0m"
 declare -A COLOR=(
     ["SUCCESS"]="$GREEN"
     ["ERROR"]="$RED"
-    ["WARN"]="$YELLOW"
+    ["WARNING"]="$YELLOW"
     ["INFO"]="$BLUE"
     ["DEBUG"]="$GRAY"
     ["DEFAULT"]="$DEFAULT"
@@ -26,7 +26,7 @@ declare -A COLOR=(
 declare -A SYMBOL=(
     ["SUCCESS"]=""  # Success (Nerd Font check)
     ["ERROR"]=""  # Error (Nerd Font cross)
-    ["WARN"]=""  # Warning (Nerd Font warning)
+    ["WARNING"]=""  # Warning (Nerd Font warning)
     ["INFO"]=""  # Information (Nerd Font info)
     ["DEBUG"]=""  # Debug (Nerd Font bug)
     ["DEFAULT"]=" "  # Default
