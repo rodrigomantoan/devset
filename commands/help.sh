@@ -2,11 +2,13 @@
 
 # Help function
 help() {
-  echo -e "\033[1;34mUsage:\033[0m"
-  echo -e "  devset [options] [--] <command>"
-  echo -e "\n\033[1;34mOptions:\033[0m"
-  echo -e "  -h, --help          Display this help message"
-  echo -e "  -v, --version       Display this application version"
-  echo -e "\n\033[1;34mAvailable commands:\033[0m"
-  echo -e "  help                Display this help message"
+  _print_message "${BLUE}${BOLD}Usage:${DEFAULT}"
+  _print_message "  devset command [options]"
+
+  _print_message "${BLUE}${BOLD}\nOptions:${DEFAULT}"
+  _print_message "${GREEN}  -h, --help          ${DEFAULT}Display help message"
+  _print_message "${GREEN}  -v, --version       ${DEFAULT}Display application version"
+
+  _print_message "\n\033[1;34mAvailable commands:\033[0m"
+  _print_message "${GREEN}  help                ${DEFAULT}Display help message"
 }
