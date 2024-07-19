@@ -71,6 +71,9 @@ _create_based_on_project_type() {
             ;;
         esac
         _print_message "SUCCESS" "${BOLD}${project_name}${END_BOLD} project folder setup completed."
+      else
+        _print_message "ERROR" "Invalid project type. Please choose from --wordpress, --laravel, --statamic, or leave project type empty."
+        exit 1
       fi
 
   esac
