@@ -30,20 +30,16 @@ case "$1" in
     create_project "$2" "$3"
     ;;
   remove|-rm|--remove)
-    # Placeholder for remove project
     echo "Remove project placeholder"
     ;;
   install|-i|--install)
-    # Placeholder for install environment
     echo "Install environment placeholder"
     ;;
   uninstall|-u|--uninstall)
-    # Placeholder for uninstall environment
     echo "Uninstall environment placeholder"
     ;;
   *)
-    echo -e "\033[1;31mError:\033[0m Unknown command: $1"
-    # Placeholder for help function
-    echo "Help function placeholder"
+    _print_message "ERROR" "ERROR: Unknown command: $1"
+    help
     ;;
 esac
