@@ -26,7 +26,7 @@ case "$1" in
   version|-v|--version)
     _print_message "INFO" "DevSet $SCRIPT_VERSION"
     ;;
-  new|add|-n|--new|-a|--add)
+  new|add|create|-n|--new|-a|--add)
     create_project "$2" "$3"
     ;;
   remove|-rm|--remove)
