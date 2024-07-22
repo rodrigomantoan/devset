@@ -45,3 +45,23 @@ _print_message() {
 
     echo -e "${COLOR[$type]}${SYMBOL[$type]}${message}${DEFAULT}"
 }
+
+_mkdir() {
+  local path=$1
+  local err_msg
+
+  if [[ ! -d "$path" ]]; then
+    _print_message "INFO" "Creating directory ${BOLD}$path${END_BOLD}..."
+    mkdir -p "$path" 2>mkdir_error.log
+    if [ $? -ne 0 ]; then
+      err_msg=$(<mkdir_error.log)
+      _print_message "ERROR" "Failed to create directory ${BOLD}$path${END_BOLD}. (${err_msg})"
+      rm mkdir_error.log
+      exit 1
+    fi
+    _print_message "SUCCESS" "Directory ${BOLD}$path${END_BOLD} created."
+    rm mkdir_error.log
+  else
+    _print_message "WARNING" "Directory ${BOLD}$path${END_BOLD} already exists. Skipping folder creation."
+  fi
+}
