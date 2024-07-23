@@ -1,11 +1,8 @@
-name: Create and Upload Release
+name: Create Release
 
 on:
   release:
-    types: [created]
-
-permissions:
-  contents: write
+    types: [published]
 
 jobs:
   build:
@@ -15,26 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Create devset.tar.gz
-        run: |
-          tar -czvf devset.tar.gz commands utils templates devset.sh
+      - name: Combine Scripts
+        run: ./.scripts/combine.sh
 
-      - name: Upload Release Assets
+      - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./devset.tar.gz
-          asset_name: devset.tar.gz
-          asset_content_type: application/gzip
-
-      - name: Upload Installer
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./installer.sh
-          asset_name: installer.sh
+          asset_path: ./devset.sh
+          asset_name: devset.sh
           asset_content_type: application/x-sh
