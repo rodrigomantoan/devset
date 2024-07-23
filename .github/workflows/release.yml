@@ -28,3 +28,5 @@ jobs:
           asset_path: ./devset.tar.gz
           asset_name: devset.tar.gz
           asset_content_type: application/gzip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
