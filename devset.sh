@@ -4,6 +4,7 @@
 
 BASE_DIR=$(dirname "$0") # Script directory
 SCRIPT_VERSION="0.1" # Script version
+TEMPLATES="$BASE_DIR/templates" # Templates directory
 
 projects_path="$HOME/Sites" # Projects path
 projects_tld="test" # Projects TLD
@@ -18,6 +19,7 @@ source "$BASE_DIR/commands/uninstall.sh"
 # Source utility functions
 source "$BASE_DIR/utils/common.sh"
 source "$BASE_DIR/utils/helpers.sh"
+source "$BASE_DIR/utils/nginx.sh"
 
 # Main script logic
 case "$1" in
