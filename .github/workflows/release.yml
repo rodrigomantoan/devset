@@ -1,0 +1,29 @@
+name: Create and Upload Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create devset.tar.gz
+        run: |
+          mkdir -p devset
+          cp -r commands utils templates devset.sh devset/
+          tar -czvf devset.tar.gz devset
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./devset.tar.gz
+          asset_name: devset.tar.gz
+          asset_content_type: application/gzip
