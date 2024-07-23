@@ -3,20 +3,26 @@
 remove_project() {
   local project_name=$1
   local project_path=${projects_path}/${project_name}
+  local nginx_conf="/etc/nginx/conf.d/${project_name}.${projects_tld}.conf"
+
 
   if [[ -z "$project_name" ]]; then
     _print_message "ERROR" "Project name is required."
     return 1
   fi
 
-  read -p "Are you sure you want to remove ${project_name}'s configurations? [Y/n]: " answer
-  answer=${answer:-y}
-  answer=$(echo "${answer}" | tr '[:upper:]' '[:lower:]')
+  if [[ -d "${project_path}"  ]] || [[ -f "${nginx_conf}" ]] || grep -q "${project_name}.${projects_tld}" /etc/hosts; then
+    read -p "Are you sure you want to remove ${project_name}'s configurations? [Y/n]: " answer
+      answer=${answer:-y}
+      answer=$(echo "${answer}" | tr '[:upper:]' '[:lower:]')
 
-  case "$answer" in
-    y|yes) _remove_project_config "${project_name}" "${project_path}" ;;
-    *) _print_message "INFO" "Project configuration removal aborted." ;;
-  esac
+      case "$answer" in
+        y|yes) _remove_project_config "${project_name}" "${project_path}" ;;
+        *) _print_message "INFO" "Project configuration removal aborted." ;;
+      esac
+  else
+    _print_message "WARNING" "There's configuration or folder setup for ${BOLD}${project_name}${END_BOLD}."
+  fi
 }
 
 _remove_project_config() {
