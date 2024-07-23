@@ -14,6 +14,20 @@ _hosts_add_entry() {
   fi
 }
 
+_hosts_remove_entry() {
+  if grep -q "${project_name}.${projects_tld}" /etc/hosts; then
+    _print_message "INFO" "Removing hosts entry for ${BOLD}${project_name}${END_BOLD}..."
+
+    if sudo sed -i "/${project_name}.${projects_tld}/d" /etc/hosts; then
+      _print_message "SUCCESS" "Hosts entry for ${BOLD}${project_name}${END_BOLD} removed."
+    else
+      _print_message "ERROR" "Failed to remove hosts entry for ${BOLD}${project_name}${END_BOLD}."
+    fi
+  else
+    _print_message "WARNING" "Hosts entry for ${BOLD}${project_name}${END_BOLD} does not exist."
+  fi
+}
+
 _setup_permissions() {
   _print_message "INFO" "Setting permissions for ${BOLD}${public_folder}${END_BOLD}..."
   if sudo chown -R $USER:nginx ${public_folder} && sudo chmod -R 755 ${public_folder}; then

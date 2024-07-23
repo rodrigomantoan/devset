@@ -33,7 +33,7 @@ case "$1" in
     create_project "$2" "$3"
     ;;
   remove|-rm|--remove)
-    echo "Remove project placeholder"
+    remove_project "$2"
     ;;
   install|-i|--install)
     echo "Install environment placeholder"
