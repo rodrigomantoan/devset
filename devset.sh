@@ -1,8 +1,14 @@
 #!/bin/bash
 
-# This script is used to set up the development environment for local projects
+# Resolve the script directory even when the script is symlinked
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" &> /dev/null && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+BASE_DIR="$( cd -P "$( dirname "$SOURCE" )" &> /dev/null && pwd )"
 
-BASE_DIR=$(dirname "$0") # Script directory
 SCRIPT_VERSION="0.9.0" # Script version
 TEMPLATES="$BASE_DIR/templates" # Templates directory
 
