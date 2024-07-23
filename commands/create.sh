@@ -9,7 +9,7 @@ create_project() {
   _check_and_create_root_directory
   _check_project_folder_exists_and_empty
   _create_based_on_project_type
-  _add_hosts_entry "${project_name}"
+  _hosts_add_entry "${project_name}"
 }
 
 _check_and_create_root_directory() {
