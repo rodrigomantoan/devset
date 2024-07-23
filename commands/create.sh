@@ -37,14 +37,7 @@ _create_based_on_project_type() {
   case "${project_type}" in
     wordpress) _create_wordpress_project ;;
     laravel|statamic) _create_composer_project ;;
-    *)
-      if [[ -z "${project_type}" ]]; then
-        _create_blank_project
-      else
-        _print_message "ERROR" "Invalid project type. Please choose from --wordpress, --laravel, --statamic, or leave project type empty."
-        exit 1
-      fi
-
+    *) _create_blank_project ;;
   esac
 }
 
@@ -71,10 +64,16 @@ _create_composer_project() {
 }
 
 _create_blank_project() {
-  read -p "Does your project require a public folder? (Y/n): " require_public
-  require_public=${require_public:-y}
-  require_public=$(echo "$require_public" | tr '[:upper:]' '[:lower:]')
 
-  public_folder="$project_base_path${require_public:+/public}"
-  _mkdir "${public_folder}"
+  if [[ -z "${project_type}" ]]; then
+    read -p "Does your project require a public folder? (Y/n): " require_public
+    require_public=${require_public:-y}
+    require_public=$(echo "${require_public}" | tr '[:upper:]' '[:lower:]')
+
+    public_folder="${project_folder}${require_public:+/public}"
+    _mkdir "${public_folder}"
+  else
+    _print_message "ERROR" "Invalid project type. Please choose from --wordpress, --laravel, --statamic, or leave project type empty."
+    exit 1
+  fi
 }
