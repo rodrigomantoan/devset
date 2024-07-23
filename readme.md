@@ -40,3 +40,7 @@ devset remove project_name
 ```
 
 You will be prompted to confirm the removal of configurations and project files.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
