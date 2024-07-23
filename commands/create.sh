@@ -11,7 +11,9 @@ create_project() {
   _create_based_on_project_type
 
   _hosts_add_entry "${project_name}"
+  _setup_permissions "${public_folder}"
   _nginx_configure "${project_name}" "${public_folder}"
+  _restart_services "all"
 }
 
 _check_and_create_root_directory() {

@@ -13,3 +13,47 @@ _hosts_add_entry() {
     fi
   fi
 }
+
+_setup_permissions() {
+  _print_message "INFO" "Setting permissions for ${BOLD}${public_folder}${END_BOLD}..."
+  if sudo chown -R $USER:nginx ${public_folder} && sudo chmod -R 755 ${public_folder}; then
+    _print_message "SUCCESS" "Permissions set for ${BOLD}${public_folder}${END_BOLD}."
+  else
+    _print_message "ERROR" "Failed to set permissions for ${BOLD}${public_folder}${END_BOLD}."
+    return 1
+  fi
+
+  if command -v getenforce &>/dev/null && [[ "$(getenforce)" != "Disabled" ]]; then
+    _print_message "INFO" "Setting SELinux context for ${BOLD}${public_folder}${END_BOLD}..."
+    if sudo chcon -R -t httpd_sys_content_t "${public_folder}" && sudo chcon -R -t httpd_sys_rw_content_t "${public_folder}"; then
+      _print_message "SUCCESS" "SELinux context set for ${BOLD}${public_folder}${END_BOLD}."
+    else
+      _print_message "ERROR" "Failed to set SELinux context for ${BOLD}${public_folder}${END_BOLD}."
+      return 1
+    fi
+  fi
+}
+
+_restart_services() {
+  local services=("$@") # Capture all arguments as an array
+  local all_services=("nginx" "php-fpm")
+
+  # If no arguments are passed, or "all" is passed, use all_services variable
+  if [[ ${#services[@]} -eq 0 || " ${services[*]} " =~ " all " ]]; then
+    services=("${all_services[@]}")
+  fi
+
+  _print_message "INFO" "Restarting services: ${BOLD}${services[*]}${END_BOLD}"
+
+  local failed_services=()
+
+  for service in "${services[@]}"; do
+    if sudo systemctl restart "$service"; then succeeded_services+=("$service")
+    else failed_services+=("$service")
+    fi
+  done
+
+  if [[ ${#failed_services[@]} -eq 0 ]]; then _print_message "SUCCESS" "All services restarted successfully (${BOLD}${succeeded_services[*]}${END_BOLD})."
+  else _print_message "ERROR" "Failed to restart services: ${BOLD}${failed_services[*]}${END_BOLD}"
+  fi
+}
