@@ -8,12 +8,12 @@ This project was created mostly to practice bash. If you want more robust soluti
 
 Using curl:
 ```bash
-sudo curl -L -o /usr/local/bin/devset https://raw.githubusercontent.com/rodrigomantoan/devset/main/devset.sh && sudo chmod +x /usr/local/bin/devset
+sudo curl -sSL https://github.com/rodrigomantoan/devset/releases/latest/download/installer.sh | bash
 ```
 
 Using wget:
 ```bash
-sudo wget -O /usr/local/bin/devset https://raw.githubusercontent.com/rodrigomantoan/devset/main/devset.sh && sudo chmod +x /usr/local/bin/devset
+sudo wget -qO- https://github.com/rodrigomantoan/devset/releases/latest/download/installer.sh | bash
 ```
 
 *Restart your terminal or run `source ~/.bashrc` (or `source ~/.zshrc` if you're using zsh).*
