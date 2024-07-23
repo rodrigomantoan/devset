@@ -17,6 +17,7 @@ source "$BASE_DIR/commands/uninstall.sh"
 
 # Source utility functions
 source "$BASE_DIR/utils/common.sh"
+source "$BASE_DIR/utils/helpers.sh"
 
 # Main script logic
 case "$1" in
@@ -39,7 +40,7 @@ case "$1" in
     echo "Uninstall environment placeholder"
     ;;
   *)
-    _print_message "ERROR" "ERROR: Unknown command: $1"
+    _print_message "ERROR" "Unknown command: $1"
     help
     ;;
 esac
