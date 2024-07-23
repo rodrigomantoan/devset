@@ -3,7 +3,7 @@
 # This script is used to set up the development environment for local projects
 
 BASE_DIR=$(dirname "$0") # Script directory
-SCRIPT_VERSION="0.1" # Script version
+SCRIPT_VERSION="0.9.0" # Script version
 TEMPLATES="$BASE_DIR/templates" # Templates directory
 
 projects_path="$HOME/Sites" # Projects path
@@ -27,7 +27,7 @@ case "$1" in
     help
     ;;
   version|-v|--version)
-    _print_message "INFO" "DevSet $SCRIPT_VERSION"
+    _print_message "INFO" "devset $SCRIPT_VERSION"
     ;;
   new|add|create|-n|--new|-a|--add)
     create_project "$2" "$3"
@@ -35,12 +35,12 @@ case "$1" in
   remove|-rm|--remove)
     remove_project "$2"
     ;;
-  install|-i|--install)
-    echo "Install environment placeholder"
-    ;;
-  uninstall|-u|--uninstall)
-    echo "Uninstall environment placeholder"
-    ;;
+  #install|-i|--install)
+    #install
+    #;;
+  #uninstall|-u|--uninstall)
+    #uninstall
+    #;;
   *)
     _print_message "ERROR" "Unknown command: $1"
     help
