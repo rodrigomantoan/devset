@@ -9,7 +9,6 @@ create_project() {
   _check_and_create_root_directory
   _check_project_folder_exists_and_empty
   _create_based_on_project_type
-
 }
 
 _check_and_create_root_directory() {
@@ -64,13 +63,16 @@ _create_composer_project() {
 }
 
 _create_blank_project() {
-
   if [[ -z "${project_type}" ]]; then
-    read -p "Does your project require a public folder? (Y/n): " require_public
+    read -p "Does your project require a public folder? [Y/n]: " require_public
     require_public=${require_public:-y}
     require_public=$(echo "${require_public}" | tr '[:upper:]' '[:lower:]')
 
-    public_folder="${project_folder}${require_public:+/public}"
+    if [[ "${require_public}" == "y" ]]; then
+      public_folder="${project_folder}/public"
+    else
+      public_folder="${project_folder}"
+    fi
     _mkdir "${public_folder}"
   else
     _print_message "ERROR" "Invalid project type. Please choose from --wordpress, --laravel, --statamic, or leave project type empty."
