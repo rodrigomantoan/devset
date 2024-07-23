@@ -21,12 +21,22 @@ jobs:
           cp -r commands utils templates devset.sh devset/
           tar -czvf devset.tar.gz devset
 
-      - name: Upload Release Asset
+      - name: Upload Release Assets
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./devset.tar.gz
           asset_name: devset.tar.gz
           asset_content_type: application/gzip
+
+      - name: Upload Installer
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./installer.sh
+          asset_name: installer.sh
+          asset_content_type: application/x-sh
