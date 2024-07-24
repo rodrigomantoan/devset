@@ -24,3 +24,17 @@ _php_fpm_setup() {
   _print_message "SUCCESS" "PHP-FPM configuration updated."
   _restart_services "all"
 }
+
+_php_fpm_restore() {
+  local fpm_conf="/etc/php-fpm.d/www.conf"
+  local fpm_conf_backup="/etc/php-fpm.d/www.conf.bak"
+
+  if [[ -f "$fpm_conf_backup" ]]; then
+    _print_message "INFO" "Restoring PHP-FPM configuration from backup..."
+    sudo cp "$fpm_conf_backup" "$fpm_conf"
+    _print_message "SUCCESS" "PHP-FPM configuration restored from $fpm_conf_backup."
+    _restart_services "all"
+  else
+    _print_message "WARNING" "No PHP-FPM backup configuration found to restore."
+  fi
+}
