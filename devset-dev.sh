@@ -13,10 +13,15 @@ case "$1" in
   version|-v|--version)
     _print_message "INFO" "devset $SCRIPT_VERSION"
     ;;
+  install|-i|--install)
+    install_environment
+    ;;
   new|add|create|-n|--new|-a|--add)
+    _check_environment_silently
     create_project "$2" "$3"
     ;;
   remove|-rm|--remove)
+    _check_environment
     remove_project "$2"
     ;;
   *)

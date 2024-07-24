@@ -49,15 +49,14 @@ _setup_permissions() {
 }
 
 _restart_services() {
-  local services=("$@") # Capture all arguments as an array
+  local services=("$@")
   local all_services=("nginx" "php-fpm")
 
-  # If no arguments are passed, or "all" is passed, use all_services variable
   if [[ ${#services[@]} -eq 0 || " ${services[*]} " =~ " all " ]]; then
     services=("${all_services[@]}")
   fi
 
-  _print_message "INFO" "Restarting services: ${BOLD}${services[*]}${END_BOLD}"
+  _print_message "INFO" "Restarting services (${BOLD}${services[*]}${END_BOLD})"
 
   local failed_services=()
 
@@ -68,6 +67,28 @@ _restart_services() {
   done
 
   if [[ ${#failed_services[@]} -eq 0 ]]; then _print_message "SUCCESS" "All services restarted successfully (${BOLD}${succeeded_services[*]}${END_BOLD})."
-  else _print_message "ERROR" "Failed to restart services: ${BOLD}${failed_services[*]}${END_BOLD}"
+  else _print_message "ERROR" "Failed to restart services (${BOLD}${failed_services[*]}${END_BOLD})";
   fi
+}
+
+_detect_package_manager() {
+  declare -A os_info
+  os_info[/etc/debian_version]="apt update && apt install -y;apt remove -y"
+  os_info[/etc/lsb-release]="apt update && apt install -y;apt remove -y"  # For Ubuntu and derivatives
+  os_info[/etc/fedora-release]="dnf install -y;dnf remove -y"
+  os_info[/etc/redhat-release]="yum install -y;yum remove -y"
+  os_info[/etc/centos-release]="yum install -y;yum remove -y"
+  os_info[/etc/arch-release]="pacman -Syu --noconfirm;pacman -Rns --noconfirm"
+  os_info[/etc/gentoo-release]="emerge --ask;emerge --unmerge"
+  os_info[/etc/SuSE-release]="zypper install -y;zypper remove -y"
+  os_info[/etc/alpine-release]="apk add;apk del"
+
+  for f in "${!os_info[@]}"; do
+    if [[ -f $f ]]; then
+      echo "${os_info[$f]}"
+      return
+    fi
+  done
+
+  echo "unsupported;unsupported"
 }
