@@ -1,5 +1,3 @@
-#!/bin/bash
-
 remove_project() {
   local project_name=$1
   local project_path=${projects_path}/${project_name}

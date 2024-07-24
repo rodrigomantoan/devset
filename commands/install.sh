@@ -1,5 +1,3 @@
-#!/bin/bash
-
 dependencies_checked=false
 dependencies_installed=false
 installed_dependencies=()

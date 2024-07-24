@@ -1,5 +1,3 @@
-#!/bin/bash
-
 _php_fpm_setup() {
   local user=$USER
   local fpm_conf="/etc/php-fpm.d/www.conf"

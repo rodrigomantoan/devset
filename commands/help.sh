@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Help function
 help() {
   _print_message "${BLUE}${BOLD}Usage:${DEFAULT}"

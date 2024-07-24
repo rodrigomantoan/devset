@@ -1,5 +1,3 @@
-#!/bin/bash
-
 create_project() {
   local project_name=${1}
   local project_type=${2/--/}

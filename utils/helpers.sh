@@ -1,5 +1,3 @@
-#!/bin/bash
-
 _hosts_add_entry() {
   if grep -q "${project_name}.${projects_tld}" /etc/hosts; then
     _print_message "WARNING" "/etc/hosts entry for ${BOLD}${project_name}.${projects_tld}${END_BOLD} already exists. Skipping this step."

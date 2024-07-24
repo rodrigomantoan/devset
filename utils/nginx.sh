@@ -1,5 +1,3 @@
-#!/bin/bash
-
 _nginx_configure() {
   local project_name=$1
   local public_folder=$2
