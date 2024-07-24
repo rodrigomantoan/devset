@@ -21,7 +21,6 @@ case "$1" in
     create_project "$2" "$3"
     ;;
   remove|-rm|--remove)
-    _check_environment
     remove_project "$2"
     ;;
   *)

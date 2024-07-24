@@ -30,7 +30,7 @@ _remove_project_config() {
   _nginx_remove_config "${project_name}"
   _hosts_remove_entry "${project_name}"
 
-  read -p "$(_print_message "INFO" "All configuration were removed. ${RED}${BOLD}Do you want to delete project files?${DEFAULT} [y/N]:")" remove_folder
+  read -p "$(_print_message "INFO" "All configuration were removed. ${RED}${BOLD}Do you want to delete project files?${DEFAULT} [y/N]: ")" remove_folder
   remove_folder=${remove_folder:-n}
   remove_folder=$(echo "${remove_folder}" | tr '[:upper:]' '[:lower:]')
   case "$remove_folder" in
