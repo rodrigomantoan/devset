@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_VERSION="0.11.0" # Script version
+SCRIPT_VERSION="0.12.0" # Script version
 
 projects_path="$HOME/Sites" # Projects path
 projects_tld="test" # Projects TLD
