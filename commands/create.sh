@@ -6,7 +6,7 @@ create_project() {
 
   _check_and_create_root_directory
   _check_project_folder_exists_and_empty
-  _create_based_on_project_type
+  _handle_existing_folder
 
   _hosts_add_entry "${project_name}"
   _setup_permissions "${public_folder}"
@@ -28,10 +28,18 @@ _check_project_folder_exists_and_empty() {
     _print_message "INFO" "Removing empty directory ${BOLD}${project_folder}${END_BOLD} to prevent conflicts..."
     rm -r "${project_folder}"
   elif [[ -d "${project_folder}" ]] && [[ ! -z "$(ls -A "${project_folder}")" ]]; then
-    _print_message "ERROR" "Directory ${BOLD}${project_name}${END_BOLD} exists and is not empty. Please choose another name for the project."
-    exit 1
+    _print_message "INFO" "Directory ${BOLD}${project_name}${END_BOLD} already exists. Skipping creation steps and applying configurations."
+    folder_exists=true
   else
     _print_message "INFO" "No directory found for ${BOLD}${project_name}${END_BOLD}. One will be created."
+  fi
+}
+
+_handle_existing_folder() {
+  if [[ "${folder_exists}" != true ]]; then
+    _create_based_on_project_type
+  else
+    _check_public_folder_requirement
   fi
 }
 
@@ -67,18 +75,22 @@ _create_composer_project() {
 
 _create_blank_project() {
   if [[ -z "${project_type}" ]]; then
-    read -p "Does your project require a public folder? [Y/n]: " require_public
-    require_public=${require_public:-y}
-    require_public=$(echo "${require_public}" | tr '[:upper:]' '[:lower:]')
-
-    if [[ "${require_public}" == "y" ]]; then
-      public_folder="${project_folder}/public"
-    else
-      public_folder="${project_folder}"
-    fi
+    _check_public_folder_requirement
     _mkdir "${public_folder}"
   else
     _print_message "ERROR" "Invalid project type. Please choose from --wordpress, --laravel, --statamic, or leave project type empty."
     exit 1
+  fi
+}
+
+_check_public_folder_requirement() {
+  read -p "Does your project require a public folder? [Y/n]: " require_public
+  require_public=${require_public:-y}
+  require_public=$(echo "${require_public}" | tr '[:upper:]' '[:lower:]')
+
+  if [[ "${require_public}" == "y" ]]; then
+    public_folder="${project_folder}/public"
+  else
+    public_folder="${project_folder}"
   fi
 }
